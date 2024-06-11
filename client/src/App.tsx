@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import "./App.css";
-import Input from "./components/Input";
-import { useForm } from "react-hook-form";
+import Input, { IFormValues } from "./components/Input";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "./components/Button";
+import { useNavigate } from "react-router-dom";
+import Label from "./components/Label";
+import { userData } from "./user_data";
 
 const Wrapper = styled.div`
-  background-image: url("public/img/main_background.png");
+  background-image: url("/img/main_background.png");
   background-repeat: no-repeat;
-  /* background-position: center; */
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -22,7 +24,6 @@ const Section = styled.section`
   justify-content: space-around;
   align-items: center;
   backdrop-filter: blur(50px);
-  /* background-color: #73b9ff; */
   border-radius: 10px;
 
   @media screen and (max-width: 1250px) {
@@ -72,13 +73,19 @@ const RightSection = styled.form`
 `;
 
 const App = () => {
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+    register,
+  } = useForm<IFormValues>();
 
-  const onClick = () => {
-    alert("Asd");
+  const onSubmit: SubmitHandler<IFormValues> = ({ email, password }) => {
+    console.log(typeof email, typeof password);
+    if (email === userData.email && password === userData.password) {
+      navigate("/home");
+    }
   };
 
   return (
@@ -89,23 +96,40 @@ const App = () => {
           <p>로그인 후 이용 가능합니다</p>
         </LeftSection>
 
-        <RightSection onSubmit={handleSubmit(onClick)}>
-          <p>아이디</p>
-          <Input width="300px" height="45px" type="email" id="email" required />
+        <RightSection onSubmit={handleSubmit(onSubmit)}>
+          <Label htmlFor="email">아이디</Label>
+          <Input
+            width="300px"
+            height="45px"
+            type="email"
+            id="email"
+            label="email"
+            register={register}
+            required
+          />
 
-          <p>비밀번호</p>
+          <Label htmlFor="password">비밀번호</Label>
           <Input
             width="300px"
             height="45px"
             type="password"
             id="password"
+            label="password"
+            register={register}
             required
           />
           <Button disabled={isSubmitting} width="300px" height="45px">
             로그인
           </Button>
 
-          <p className="register_btn">회원가입하기</p>
+          <p
+            className="register_btn"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            회원가입하기
+          </p>
         </RightSection>
       </Section>
     </Wrapper>

@@ -19,7 +19,7 @@ interface IButtonProps {
   width: string;
   height: string;
   children: React.ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const Button = ({ disabled, width, height, children }: IButtonProps) => {
