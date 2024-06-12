@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Button from "../../components/Button";
-import Input, { IFormValues } from "../../components/Input";
-import Label from "../../components/Label";
+import Button from "../../components/Elements/Button";
+import Input, { IFormValues } from "../../components/Elements/Input";
+import Label from "../../components/Elements/Label";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
