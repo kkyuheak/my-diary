@@ -3,6 +3,8 @@ import "./App.css";
 import MainPage from "./components/MainPage";
 import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
+import Layout from "./components/Layout";
+import Post from "./pages/write/Post";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ],
+  },
+
+  {
+    path: "/write",
+    element: <Post />,
   },
 ]);
 

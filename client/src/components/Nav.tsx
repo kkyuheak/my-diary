@@ -3,6 +3,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Container = styled.nav`
   height: 60px;
@@ -18,6 +19,7 @@ const Wrapper = styled.div`
 
   .nav_title {
     font-size: 30px;
+    cursor: pointer;
   }
 `;
 
@@ -79,19 +81,33 @@ const HiddenNav = styled.ul`
 `;
 
 const Nav = () => {
+  const navigate = useNavigate();
   const [hidden, setHidden] = useState(true);
 
   return (
     <Container>
       <Wrapper>
-        <p className="nav_title">Sdiary</p>
+        <p
+          className="nav_title"
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          Sdiary
+        </p>
 
         <NavItems>
           <li className="search_btn">
             <FaMagnifyingGlass />
           </li>
           <li>
-            <WriteBtn>새 일기 작성</WriteBtn>
+            <WriteBtn
+              onClick={() => {
+                navigate("/write");
+              }}
+            >
+              새 일기 작성
+            </WriteBtn>
           </li>
           <li
             className="user_more_btn"
@@ -107,6 +123,7 @@ const Nav = () => {
           </HiddenNav>
         </NavItems>
       </Wrapper>
+      <Outlet />
     </Container>
   );
 };
