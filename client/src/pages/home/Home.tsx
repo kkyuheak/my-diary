@@ -6,13 +6,14 @@ const Home = () => {
 
   return (
     <div>
-      {data.map((item) => {
+      {data.map((item, idx) => {
         return (
           <DiaryBox
             title={item.title}
             main={item.main}
             weather={item.weather}
             weatherIcon={item.weatherIcon}
+            key={idx}
           />
         );
       })}
